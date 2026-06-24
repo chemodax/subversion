@@ -184,7 +184,19 @@ jobs:
 
       - name: Install dependencies (Mac OS, python)
         if: runner.os == 'macOS'
-        run: python -m pip -v --disable-pip-version-check install lxml==6.1.0 rnc2rng==2.7.0
+        run: |
+          python3 -m venv "$HOME/test-python-venv"
+          "$HOME/test-python-venv/bin/python3" -m pip \
+              -v \
+              --disable-pip-version-check \
+              install lxml==6.1.0 rnc2rng==2.7.0
+
+      - name: Set platform-specific values
+        id: platform
+        run: |
+          if test "$RUNNER_OS" = 'macOS'; then
+              echo "python=$HOME/test-python-venv" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Use LF for Git checkout
         run: |
@@ -210,6 +222,7 @@ jobs:
           -DSVN_TEST_CONFIGURE_FOR_PARALLEL=ON
           -DPython3_FIND_REGISTRY=NEVER
           -DPython3_FIND_STRATEGY=LOCATION
+          -DPython3_ROOT_DIR=${{ steps.platform.outputs.python }}
           ${{ matrix.extra_config_opts }}
 
       - name: Build CMake

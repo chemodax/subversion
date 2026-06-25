@@ -216,9 +216,6 @@ jobs:
           -DSVN_TEST_CONFIGURE_FOR_PARALLEL=ON
           -DPython3_FIND_REGISTRY=NEVER
           -DPython3_FIND_STRATEGY=LOCATION
-          -DPython3_FIND_VIRTUALENV=STANDARD
-          -DPython3_FIND_FRAMEWORK=NEVER
-          -DPython3_FIND_UNVERSIONED_NAMES=FIRST
           -DPython3_ROOT_DIR=${{ steps.platform.outputs.python_root }}
           ${{ matrix.extra_config_opts }}
 

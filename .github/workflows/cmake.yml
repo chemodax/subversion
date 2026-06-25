@@ -190,7 +190,7 @@ jobs:
         id: platform
         run: |
           $PYTHON_ROOT=$(python -c 'import pathlib, sys; print(str(pathlib.Path(sys.executable).resolve().parent.parent))')
-          "python_root=PYTHON_ROOT" >> "$env:$GITHUB_OUTPUT"
+          "python_root=PYTHON_ROOT" >> "$env:GITHUB_OUTPUT"
 
       - name: Use LF for Git checkout
         run: |
